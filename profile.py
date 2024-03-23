@@ -44,47 +44,37 @@ MKDIR_DATA = MKDIR_DATA.format(USER)
 URN2204 = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU22-64-STD"
 
 # Node server
-node_server = request.RawPC('server')
-node_server.hardware_type = 'r6525'
+node_server = request.RawPC('c1')
+node_server.hardware_type = 'rc6420'
 #node_server.hardware_type = 'd6515'
 # node_server.hardware_type = 'sm110p'
 node_server.disk_image = URN2204
-iface0 = node_server.addInterface('interface-0')
 bs0 = node_server.Blockstore('bs', '/mydata')
 node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
 node_server.addService(pg.Execute(shell="bash", command=SINEPY))
 node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
 
 # Node client 1
-node_client_1 = request.RawPC('client1')
-node_client_1.hardware_type = 'r6525'
+node_client_1 = request.RawPC('c2')
+node_client_1.hardware_type = 'c6420'
 #node_client_1.hardware_type = 'd6515'
 #node_client_1.hardware_type = 'sm110p'
 node_client_1.disk_image = URN2204
-iface1 = node_client_1.addInterface('interface-1')
 bs1 = node_client_1.Blockstore('bs1', '/mydata')
 node_client_1.addService(pg.Execute(shell="bash", command=OQINSTALL))
 node_client_1.addService(pg.Execute(shell="bash", command=SINEPY))
 node_client_1.addService(pg.Execute(shell="bash", command=ADDGRP))
 
 # Node client 2
-node_client_2 = request.RawPC('client2')
-node_client_2.hardware_type = 'r6525'
+node_client_2 = request.RawPC('c3')
+node_client_2.hardware_type = 'c6420'
 #node_client_2.hardware_type = 'd6515'
 #node_client_2.hardware_type = 'sm110p'
 node_client_2.disk_image = URN2204
-iface2 = node_client_2.addInterface('interface-2')
 bs2 = node_client_2.Blockstore('bs2', '/mydata')
 node_client_2.addService(pg.Execute(shell="bash", command=OQINSTALL))
 node_client_2.addService(pg.Execute(shell="bash", command=SINEPY))
 node_client_2.addService(pg.Execute(shell="bash", command=ADDGRP))
-
-# Link link-0
-link_0 = request.Link('link-0')
-link_0.Site('undefined')
-link_0.addInterface(iface0)
-link_0.addInterface(iface1)
-link_0.addInterface(iface2)
 
 # Print the generated rspec
 pc.printRequestRSpec(request)
