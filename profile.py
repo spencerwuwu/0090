@@ -45,7 +45,7 @@ URN2204 = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU22-64-STD"
 
 # Node server
 node_server = request.RawPC('c1')
-node_server.hardware_type = 'rc6420'
+node_server.hardware_type = 'c6420'
 #node_server.hardware_type = 'd6515'
 # node_server.hardware_type = 'sm110p'
 node_server.disk_image = URN2204
