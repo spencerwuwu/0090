@@ -44,43 +44,16 @@ MKDIR_DATA = MKDIR_DATA.format(USER)
 URN2204 = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU22-64-STD"
 
 HARDWARE_TYPE = 'c6420'
+NODE_COUNT = 4
 
-# Node 0
-node_server = request.RawPC('n0')
-node_server.hardware_type = HARDWARE_TYPE
-node_server.disk_image = URN2204
-bs0 = node_server.Blockstore('bs', '/mydata')
-node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_server.addService(pg.Execute(shell="bash", command=SINEPY))
-node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
-
-# Node 1
-node_server = request.RawPC('n1')
-node_server.hardware_type = HARDWARE_TYPE
-node_server.disk_image = URN2204
-bs0 = node_server.Blockstore('bs', '/mydata')
-node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_server.addService(pg.Execute(shell="bash", command=SINEPY))
-node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
-
-# Node 2
-node_server = request.RawPC('n2')
-node_server.hardware_type = HARDWARE_TYPE
-node_server.disk_image = URN2204
-bs0 = node_server.Blockstore('bs', '/mydata')
-node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_server.addService(pg.Execute(shell="bash", command=SINEPY))
-node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
-
-# Node 3
-node_server = request.RawPC('n3')
-node_server.hardware_type = HARDWARE_TYPE
-node_server.disk_image = URN2204
-bs0 = node_server.Blockstore('bs', '/mydata')
-node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_server.addService(pg.Execute(shell="bash", command=SINEPY))
-node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
-
+for node_id in range(NODE_COUNT):
+    node = request.RawPC('n{}'.format(node_id))
+    node.hardware_type = HARDWARE_TYPE
+    node.disk_image = URN2204
+    bs0 = node.Blockstore('bs{}'.format(node_id), '/mydata')
+    node.addService(pg.Execute(shell="bash", command=OQINSTALL))
+    node.addService(pg.Execute(shell="bash", command=SINEPY))
+    node.addService(pg.Execute(shell="bash", command=ADDGRP))
 
 
 # Print the generated rspec
