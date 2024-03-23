@@ -43,38 +43,45 @@ MKDIR_DATA = "sudo -u {} mkdir /mydata/data"
 MKDIR_DATA = MKDIR_DATA.format(USER)
 URN2204 = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU22-64-STD"
 
-# Node server
-node_server = request.RawPC('c1')
-node_server.hardware_type = 'c6420'
-#node_server.hardware_type = 'd6515'
-# node_server.hardware_type = 'sm110p'
+HARDWARE_TYPE = 'c6420'
+
+# Node 0
+node_server = request.RawPC('n0')
+node_server.hardware_type = HARDWARE_TYPE
 node_server.disk_image = URN2204
 bs0 = node_server.Blockstore('bs', '/mydata')
 node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
 node_server.addService(pg.Execute(shell="bash", command=SINEPY))
 node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
 
-# Node client 1
-node_client_1 = request.RawPC('c2')
-node_client_1.hardware_type = 'c6420'
-#node_client_1.hardware_type = 'd6515'
-#node_client_1.hardware_type = 'sm110p'
-node_client_1.disk_image = URN2204
-bs1 = node_client_1.Blockstore('bs1', '/mydata')
-node_client_1.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_client_1.addService(pg.Execute(shell="bash", command=SINEPY))
-node_client_1.addService(pg.Execute(shell="bash", command=ADDGRP))
+# Node 1
+node_server = request.RawPC('n1')
+node_server.hardware_type = HARDWARE_TYPE
+node_server.disk_image = URN2204
+bs0 = node_server.Blockstore('bs', '/mydata')
+node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
+node_server.addService(pg.Execute(shell="bash", command=SINEPY))
+node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
 
-# Node client 2
-node_client_2 = request.RawPC('c3')
-node_client_2.hardware_type = 'c6420'
-#node_client_2.hardware_type = 'd6515'
-#node_client_2.hardware_type = 'sm110p'
-node_client_2.disk_image = URN2204
-bs2 = node_client_2.Blockstore('bs2', '/mydata')
-node_client_2.addService(pg.Execute(shell="bash", command=OQINSTALL))
-node_client_2.addService(pg.Execute(shell="bash", command=SINEPY))
-node_client_2.addService(pg.Execute(shell="bash", command=ADDGRP))
+# Node 2
+node_server = request.RawPC('n2')
+node_server.hardware_type = HARDWARE_TYPE
+node_server.disk_image = URN2204
+bs0 = node_server.Blockstore('bs', '/mydata')
+node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
+node_server.addService(pg.Execute(shell="bash", command=SINEPY))
+node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
+
+# Node 3
+node_server = request.RawPC('n3')
+node_server.hardware_type = HARDWARE_TYPE
+node_server.disk_image = URN2204
+bs0 = node_server.Blockstore('bs', '/mydata')
+node_server.addService(pg.Execute(shell="bash", command=OQINSTALL))
+node_server.addService(pg.Execute(shell="bash", command=SINEPY))
+node_server.addService(pg.Execute(shell="bash", command=ADDGRP))
+
+
 
 # Print the generated rspec
 pc.printRequestRSpec(request)
