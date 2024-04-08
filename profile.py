@@ -44,16 +44,22 @@ MKDIR_DATA = MKDIR_DATA.format(USER)
 URN2204 = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU22-64-STD"
 
 HARDWARE_TYPE = 'c6420'
-NODE_COUNT = 4
+NODE_COUNT = 5
+
+# Link link-0
+link_0 = request.Link('link-0')
+link_0.Site('undefined')
 
 for node_id in range(NODE_COUNT):
     node = request.RawPC('n{}'.format(node_id))
     node.hardware_type = HARDWARE_TYPE
     node.disk_image = URN2204
+    iface = node.addInterface('interface-{}'.format(node_id))
     bs0 = node.Blockstore('bs{}'.format(node_id), '/mydata')
     node.addService(pg.Execute(shell="bash", command=OQINSTALL))
-    node.addService(pg.Execute(shell="bash", command=SINEPY))
+    #node.addService(pg.Execute(shell="bash", command=SINEPY))
     node.addService(pg.Execute(shell="bash", command=ADDGRP))
+    link_0.addInterface(iface)
 
 
 # Print the generated rspec
